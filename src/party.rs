@@ -25,7 +25,7 @@ impl Member {
 /// ```
 pub fn count_alive(party: &[Member]) -> usize {
     let mut alive = 0;
-    for i in 0..party.len() - 1 {
+    for i in 0..party.len() {
         if party[i].hp > 0 {
             alive += 1;
         }
@@ -42,7 +42,7 @@ pub fn count_alive(party: &[Member]) -> usize {
 /// assert_eq!(total_hp(&party), 40);
 /// ```
 pub fn total_hp(party: &[Member]) -> i32 {
-    let mut total = party[0].hp;
+    let mut total = 0;
     for member in party {
         total += member.hp;
     }
@@ -64,7 +64,7 @@ pub fn healthiest(party: &[Member]) -> Option<&str> {
     }
     let mut best = 0;
     for i in 1..party.len() {
-        if party[i].hp < party[best].hp {
+        if party[i].hp > party[best].hp {
             best = i;
         }
     }
@@ -83,7 +83,6 @@ pub fn healthiest(party: &[Member]) -> Option<&str> {
 /// ```
 pub fn heal_all(party: &mut [Member], amount: i32) {
     for i in 0..party.len() {
-        let mut member = party[i].clone();
-        member.hp += amount;
+        party[i].hp += amount;
     }
 }
